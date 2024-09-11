@@ -36,25 +36,25 @@ The **Resume Generator** leverages Go and LaTeX to provide powerful and customiz
 ### Installation
 1. Clone the repository:
 ```bash
-git clone 
+git clone https://github.com/munirmah/Resume-Generator.git 
 ```
 2. Navigate to the project directory:
 ```bash
-cd resume-generator
+cd Resume-Generator
 ```
 3. Build the project:
 ```bash
 go build .
 ```
 
-### Usage
+## Usage
 
 You can run the tool using the following command:
 
 ```bash
-./resume-generator
+./Resume-Generator
 ```
-#### Configuraiton
+### Configuraiton
 
 The tool will, by default, look for a `.config` file in the current directory. If one is not found, it will ask you to locate one or create a new configuration file.
 Choosing to create a new configuration will guide you through the setup process and will save it in the current directory.
@@ -64,9 +64,9 @@ Choosing to create a new configuration will guide you through the setup process 
 
 The configuration file follows the schema specified in the `config.json` file.
 
-#### Resume Content
+### Resume Content
 
-##### Base Resume
+#### Base Resume
 The tool has the ability to use a `base.yml` file that contains the complete resume content. This allows you to easily generate new resumes without having to re-enter unchanged information such as your personal details.
 
 The `base.yml` file should adhere to the schema specified in the `resume.json` file.
@@ -74,7 +74,7 @@ The `base.yml` file should adhere to the schema specified in the `resume.json` f
 
 
 
-#### Custom Order
+### Custom Order
 You can specify the order in which the sections of your resume are rendered by setting the `order` field in the configuration file. You can also specify the order as a flag when running the tool.
 
 > [!NOTE]
