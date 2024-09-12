@@ -2,7 +2,7 @@
 Welcome to the **Resume Generator**! This tool is designed to simplify and streamline the process of creating consistent, professional resumes. By separating content from styling, you can focus on crafting compelling resumes while the tool handles the formatting.
 
 
-> [!WARNING]
+> [!CAUTION]
 > Developed and tested on Fedora Linux. The tool may not work as expected on other operating systems. 
 
 
@@ -72,34 +72,14 @@ This allows you to easily generate new resumes without having to include unchang
 
 The `base.yml` file should adhere to the schema specified in the `resume.json` file.
 
-> [!EXAMPLE]
-> ```bash
-> ./Resume-Generator -b path/to/base.yml
-> ```
-
 #### Cover Letter Generation
 You can generate a cover letter alongside your resume by passing the `-c` flag.
-
-> [!EXAMPLE]
-> ```bash
-> ./Resume-Generator -c
-> ```
 
 #### Config Regeneration
 You can regenerate the configuration file by passing the `-config` flag and overwriting the existing configuration.
 
-> [!EXAMPLE]
-> ```bash
-> ./Resume-Generator -config
-> ```
-
 #### Cover Letter File Name
 You can specify the name of the cover letter file by passing the `-cvr` flag.
-
-> [!EXAMPLE]
-> ```bash
-> ./Resume-Generator -cvr cover_letter
-> ```
 
 > [!NOTE]
 > The default value of `"default"` will generate a file with Name, resume file name and "cvr".
@@ -108,26 +88,11 @@ You can specify the name of the cover letter file by passing the `-cvr` flag.
 #### Directory for Output
 You can specify the directory where the PDF output files will be saved by passing the `-dir` flag.
 
-> [!EXAMPLE]
-> ```bash
-> ./Resume-Generator -dir path/to/directory
-> ```
-
 #### File with Resume Content
 You can specify the file containing the resume content by passing the `-f` flag.
 
-> [!EXAMPLE]
-> ```bash
-> ./Resume-Generator -f path/to/resume.yml
-> ```
-
 #### Kanban File
 You can specify the file `md` containing the Kanban board for the Obsidian integration by passing the `-k` flag.
-
-> [!EXAMPLE]
-> ```bash
-> ./Resume-Generator -k path/to/kanban.md
-> ```
 
 #### Logging Level
 You can specify the logging level by passing the `-l` flag. The available options are:
@@ -135,11 +100,6 @@ You can specify the logging level by passing the `-l` flag. The available option
  - `warn`
  - `error`
  - `debug`
-
-> [!EXAMPLE]
-> ```bash
-> ./Resume-Generator -l debug
-> ```
 
 #### Order of Sections
 You can specify the order in which the sections of your resume are rendered by passing the `-o` flag.
@@ -161,7 +121,7 @@ There are some special values for the order field:
 - `none`: This will make the tool prompt you to select the sections you want to include in your resume.
 
 
-> [!EXAMPLE]
+> [!TIP]
 > ```bash
 > ./Resume-Generator -o xsm
 > ```
@@ -170,11 +130,6 @@ There are some special values for the order field:
 #### PDF Output File Name
 You can specify the name of the PDF output file by passing the `-pdf` flag.
 
-> [!EXAMPLE]
-> ```bash
-> ./Resume-Generator -pdf resume
-> ```
-
 > [!NOTE]
 > The default value of `"default"` will generate a file with Name, resume file name.
 > For example, if the resume file name is `resume` and the name is `John Doe`, the cover letter file will be named `John Doe_resume.pdf`.
@@ -182,43 +137,17 @@ You can specify the name of the PDF output file by passing the `-pdf` flag.
 #### Real-Time Preview
 You can enable real-time preview of the resume by passing the `-r` flag.
 
-> [!EXAMPLE]
-> ```bash
-> ./Resume-Generator -r
-> ```
-
 #### Show the Generated PDF
 You can enable the tool to open the generated PDF file by passing the `-s` flag.
-
-> [!EXAMPLE]
-> ```bash
-> ./Resume-Generator -s
-> ```
 
 #### Track Application in Obsidian
 You can enable the Obsidian integration by passing the `-t` flag.
 
-> [!EXAMPLE]
-> ```bash
-> ./Resume-Generator -t
-> ```
-
 #### Template Directory
 You can specify the directory where the LaTeX templates are stored by passing the `-temp` flag.
 
-> [!EXAMPLE]
-> ```bash
-> ./Resume-Generator -temp path/to/templates
-> ```
-
 #### Latex Directory
 You can specify the directory where the LaTeX files are stored by passing the `-tex` flag.
-
-> [!EXAMPLE]
-> ```bash
-> ./Resume-Generator -tex path/to/latex
-> ```
-
 
 ### Configuraiton
 
