@@ -115,17 +115,17 @@ You can specify the order in which the sections of your resume are rendered by p
 > - `m`: Summary
 >
 > **Any sections not included will not be rendered in the final resume.**
+>
+>> [!TIP]
+>> ```bash
+>> ./Resume-Generator -o xsm
+>> ```
+>> This will render the Experience, Skills, and Summary sections in that order.
 
 There are some special values for the order field:
 - `all`: This will render all sections in the order they are defined in the `base.yml` in addition to `resume.yml` file. 
 - `none`: This will make the tool prompt you to select the sections you want to include in your resume.
 
-
-> [!TIP]
-> ```bash
-> ./Resume-Generator -o xsm
-> ```
-> This will render the Experience, Skills, and Summary sections in that order.
 
 #### PDF Output File Name
 You can specify the name of the PDF output file by passing the `-pdf` flag.
