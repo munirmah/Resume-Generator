@@ -1,6 +1,7 @@
 # Resume Generator
 Welcome to the **Resume Generator**! This tool is designed to simplify and streamline the process of creating consistent, professional resumes. By separating content from styling, you can focus on crafting compelling resumes while the tool handles the formatting.
 
+<!-- Add a GIF of the tool in action -->
 
 > [!CAUTION]
 > Developed and tested on Fedora Linux. The tool may not work as expected on other operating systems. 
@@ -116,7 +117,7 @@ You can specify the order in which the sections of your resume are rendered by p
 >
 > **Any sections not included will not be rendered in the final resume.**
 >
->> [!TIP]
+>>  For example:
 >> ```bash
 >> ./Resume-Generator -o xsm
 >> ```
