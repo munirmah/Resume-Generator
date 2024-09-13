@@ -1,11 +1,10 @@
 # Resume Generator
 Welcome to the **Resume Generator**! This tool is designed to simplify and streamline the process of creating consistent, professional resumes. By separating content from styling, you can focus on crafting compelling resumes while the tool handles the formatting.
 
-<!-- Add a GIF of the tool in action -->
+## Motivation
+Crafting tailored resumes for each job application can be a time-consuming and tedious process. I wanted to easily change out the content of my LaTeX resume without the hassle of manually updating the file each time. Thus **Resume Generator** was born.
 
-> [!CAUTION]
-> Developed and tested on Fedora Linux. The tool may not work as expected on other operating systems. 
-
+![Relevent XKCD](https://imgs.xkcd.com/comics/automation.png)
 
 ## Overview
 The **Resume Generator** leverages Go and LaTeX to provide powerful and customizatble solution for resume creation. The princile behind this tool is to create a separation of concerns:
@@ -14,6 +13,8 @@ The **Resume Generator** leverages Go and LaTeX to provide powerful and customiz
  - **Styling**: The typesetting is managed through LaTeX templates.
  - **Generation**: The tool combines your resume content with the selected template to create a PDF output.
 
+> [!CAUTION]
+> Developed and tested on Fedora Linux. The tool may not work as expected on other operating systems. 
 
 ## Features:
 
