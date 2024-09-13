@@ -84,7 +84,7 @@ You can specify the name of the cover letter file by passing the `-cvr` flag.
 
 > [!NOTE]
 > The default value of `"default"` will generate a file with Name, resume file name and "cvr".
-> For example, if the resume file name is `resume` and the name is `John Doe`, the cover letter file will be named `John Doe_resume_cvr.pdf`.
+> For example, if the resume file name is `resume.yml` and the name is `John Doe`, the cover letter file will be named `John_Doe_resume_cvr.pdf`.
 
 #### Directory for Output
 You can specify the directory where the PDF output files will be saved by passing the `-dir` flag.
@@ -133,7 +133,7 @@ You can specify the name of the PDF output file by passing the `-pdf` flag.
 
 > [!NOTE]
 > The default value of `"default"` will generate a file with Name, resume file name.
-> For example, if the resume file name is `resume` and the name is `John Doe`, the cover letter file will be named `John Doe_resume.pdf`.
+> For example, if the resume file name is `resume.yml` and the name is `John Doe`, the cover letter file will be named `John_Doe_resume.pdf`.
 
 #### Real-Time Preview
 You can enable real-time preview of the resume by passing the `-r` flag.
