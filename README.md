@@ -4,7 +4,9 @@ Welcome to the **Resume Generator**! This tool is designed to simplify and strea
 ## Motivation
 Crafting tailored resumes for each job application can be a time-consuming and tedious process. I wanted to easily change out the content of my LaTeX resume without the hassle of manually updating the file each time. Thus **Resume Generator** was born.
 
-![Relevent XKCD](https://imgs.xkcd.com/comics/automation.png)
+<p align="center" width="100%">
+  <img src="https://imgs.xkcd.com/comics/automation.png" alt="Relevent XKCD"/>
+</p>
 
 ## Overview
 The **Resume Generator** leverages Go and LaTeX to provide powerful and customizatble solution for resume creation. The princile behind this tool is to create a separation of concerns:
