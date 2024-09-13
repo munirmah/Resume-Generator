@@ -1,0 +1,13 @@
+{{define "Certifications"}}
+\section{Certifications}
+{{range .Certifications}}
+	{{if .URL}}
+	\href{ {{- .URL -}} }{\textbf{ {{- .Name -}} }} | \textit{ {{- .IssuingOrg -}} } \hfill \textbf{ {{- date .IssueDate}} {{if have .ExpirationDate}} \textendash{} {{date .ExpirationDate -}} {{end}}  }
+	{{else if have .IssueDate }} 
+	\textbf{ {{- .Name -}} } \textit{ {{- .IssuingOrg -}} } | In Progress \hfill \textbf{ Expected Completion: {{date .IssueDate}} }
+	{{else}}
+	\textbf{ {{- .Name -}} } | \textit{ {{- .IssuingOrg -}} } \hfill \textbf{ {{- date .IssueDate}} {{if have .ExpirationDate}} \textendash{} {{date .ExpirationDate -}} {{end}} }
+	{{end}}
+	\vspace{5pt}
+{{end}}
+{{end}}

@@ -1,0 +1,14 @@
+{{define "Experience"}}
+\section{Relevent Experience}
+{{range .Experiences}}
+	\textbf{ {{- .Company -}} } \hfill \textbf{ {{- date .StartDate}} \textendash{} {{ if have .EndDate }} Present {{else}} {{date .EndDate -}} {{end}}} \\
+	\textit{ {{- .Title -}} } \hfill \textit{ \small {{.Location -}} } \\
+	\vspace{-5pt}
+	{{range .Description}}
+		\begin{itemize}
+			\item { {{- . -}} }\vspace{-7pt}
+		\end{itemize}
+	{{end}}
+	\vspace{2pt}
+{{end}}
+{{end}}

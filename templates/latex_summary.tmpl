@@ -1,0 +1,7 @@
+{{define "Summary"}}
+{{if .Summary.Title}}\section{ {{- .Summary.Title -}} }
+	{{if .Summary.Body}}
+		{{- .Summary.Body -}} \vspace{-5pt}
+	{{end}}
+{{end}}
+{{end}}

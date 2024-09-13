@@ -1,0 +1,18 @@
+{{define "obsidian"}}
+{{- "---" }}
+Applied: {{ today }}
+Last Updated: {{ today }}
+Link: {{ .Job.URL }}
+Rejected: False
+Company: {{ .Job.Company }}
+Location: {{ .Job.Location }}
+
+---
+# {{ .Job.Title }}
+
+{{ if .CoverLetter.Body }}
+## Cover Letter
+
+{{ .CoverLetter.Body }}
+{{ end }}
+{{end}}

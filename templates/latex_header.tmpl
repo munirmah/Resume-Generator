@@ -1,0 +1,43 @@
+{{define "header"}}
+\documentclass{article}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{fontawesome}
+\nofiles{}
+
+\pdfgentounicode=1
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\usepackage[default]{lato}
+
+\usepackage[top=0.25in, bottom=0.25in, left=0.5in, right=0.5in]{geometry}
+\raggedbottom{}
+\raggedright{}
+
+\urlstyle{same}
+
+\titleformat{\section}{\vspace{-10pt}\scshape\raggedright\large}{}{0em}{}[\titlerule\vspace{-5pt}]
+\begin{document}
+
+
+\begin{center}
+	\textbf{\Huge {{.Info.Name}}} \\
+	\href{tel:{{.Info.Phone}} }{ \faPhone \, {{ phone .Info.Phone -}} } \qquad
+	\href{mailto:{{.Info.Email}} }{ \faEnvelope \, {{ .Info.Email -}} } \qquad
+	{{range .Info.Socials}}\href{ {{- getURL . -}} }{ {{- icon . }} \, {{ .Username -}} }\qquad{{end}}
+\end{center}
+
+
+{{end}}
+
+{{define "footer"}}
+\end{document}
+{{end}}

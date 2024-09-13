@@ -1,0 +1,8 @@
+{{define "Education"}}
+\section{Education}
+{{range .Education}}
+	\textbf{ {{- .Name -}} } \hfill \textbf{ {{- date .StartDate}} \textendash{} {{date .EndDate -}} }\\
+	\textit{ {{- .Major -}} } {{if .Minor}} \textbar{}\thinspace{}Minor: \textit{ {{.Minor -}} } {{end}} \hfill \textit{\small  {{ .Location -}} }
+	\vspace{1pt}
+{{end}}
+{{end}}

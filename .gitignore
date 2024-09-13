@@ -17,6 +17,9 @@
 !README.md
 !LICENSE
 
+# Template Directory
+!templates/*
+
 # !Makefile
 
 # ...even if they are in subdirectories
