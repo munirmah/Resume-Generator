@@ -278,7 +278,7 @@ func main() {
 		}
 	}
 
-	if c.Track {
+	if c.Track && c.KanbanFile != "" {
 		//FIXME: Test Obsidian tracking
 		log.Warnf("Tracking PDF in Obsidian is not fully tested yet. Expect bugs")
 		var mdBuff bytes.Buffer
