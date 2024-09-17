@@ -41,11 +41,11 @@ func main() {
 		updateConfig bool
 		reload       bool
 		logLevel     string
+		resFile      string
 	)
 
 	flag.StringVar(&logLevel, "l", "error", "Set the log level: debug, info, warn, error")
 	flag.StringVar(&c.BaseFile, "b", c.BaseFile, "The resume that will be used as a basis for missing information")
-	flag.StringVar(&c.YamlFile, "f", "", "The YAML file containing resume data")
 	flag.StringVar(&c.TemplateDir, "temp", "./templates", "The directory containing resume templates")
 	flag.StringVar(&c.TexDir, "tex", "tex", "The directory where TeX files will be generated. Leave empty to auto create ./tex directory")
 	flag.StringVar(&c.PdfDir, "dir", "pdf", "The directory where PDF files will be saved. Leave empty to auto create ./pdf directory")
@@ -132,7 +132,7 @@ func main() {
 		}
 	}
 
-	if c.YamlFile == "" {
+	if resFile == "" {
 		log.Warnf("No resume file provided. Prompting for file")
 		var find bool
 		form := huh.NewConfirm().
@@ -158,7 +158,7 @@ func main() {
 				ShowHidden(false).
 				CurrentDirectory(cwd).
 				AllowedTypes([]string{"yaml", "yml"}).
-				Value(&c.YamlFile).
+				Value(&resFile).
 				WithHeight(20)
 			if err := form.Run(); err != nil {
 				log.Errorf("Error running file picker: %v", err)
@@ -172,15 +172,15 @@ func main() {
 	if c.BaseFile == "" {
 		log.Warnf("No base resume file provided. Skipping base resume")
 	} else {
-		err = res.parseResume(c.BaseFile)
+		err := res.parseResume(c.BaseFile)
 		if err != nil {
 			log.Fatalf("Error parsing resume file: %s - %v", c.BaseFile, err)
 		}
 	}
 
-	err = res.parseResume(c.YamlFile)
+	err := res.parseResume(resFile)
 	if err != nil {
-		log.Fatalf("Error parsing resume file: %s - %v", c.YamlFile, err)
+		log.Fatalf("Error parsing resume file: %s - %v", resFile, err)
 	}
 
 	err = res.sanitizeResume()
@@ -221,7 +221,7 @@ func main() {
 			Run()
 	}
 
-	resumeName := getFilename(c.YamlFile)
+	resumeName := getFilename(resFile)
 	name := strings.ReplaceAll(res.Info.Name, " ", "_")
 
 	if c.PdfFile == "default" {
@@ -347,18 +347,18 @@ func main() {
 		}
 		defer w.Close()
 
-		title := fmt.Sprintf("Watching for changes to %s\n  Press CTRL+C to exit", filepath.Base(c.YamlFile))
+		title := fmt.Sprintf("Watching for changes to %s\n  Press CTRL+C to exit", filepath.Base(resFile))
 		err = spinner.New().
 			Title(title).
 			Action(func() {
-				st, err := os.Lstat(c.YamlFile)
+				st, err := os.Lstat(resFile)
 				if err != nil {
 					log.Fatalf("Error getting file info: %v", err)
 				}
 				if st.IsDir() {
-					log.Fatalf("File is a directory: %s", c.YamlFile)
+					log.Fatalf("File is a directory: %s", resFile)
 				}
-				err = w.Add(filepath.Dir(c.YamlFile))
+				err = w.Add(filepath.Dir(resFile))
 				if err != nil {
 					log.Fatalf("Error adding file to watcher: %v", err)
 				}
@@ -368,10 +368,10 @@ func main() {
 						if !ok {
 							return
 						}
-						if e.Name == c.YamlFile {
+						if e.Name == resFile {
 							if e.Op.Has(fsnotify.Write) {
 								time.Sleep(1 * time.Second)
-								res.parseResume(c.YamlFile)
+								res.parseResume(resFile)
 								err = res.sanitizeResume()
 								if err != nil {
 									log.Fatalf("Error sanitizing resume file: %v", err)

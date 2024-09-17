@@ -14,7 +14,6 @@ import (
 
 type config struct {
 	BaseFile       string `yaml:"base,omitempty" form:"file; title=Base Resume File; desc=The resume that will be used as a basis for missing information\nLeave empty to ignore; ext=yml"`
-	YamlFile       string `yaml:"resume,omitempty" form:"file; title=Resume File; desc=The YAML file containing resume data\nLeave empty to prompt each run; ext=yml"`
 	TemplateDir    string `yaml:"template,omitempty" form:"file; title=Template Directory; desc=The directory containing resume templates;ext=tmpl"`
 	TexDir         string `yaml:"tex,omitempty" form:"dir; title=TeX Output Directory; desc=The directory where TeX files will be generated\nLeave empty to auto create ./tex directory"`
 	PdfDir         string `yaml:"pdf_dir,omitempty" form:"dir; title=PDF Output Directory; desc=The directory where PDF files will be saved\nLeave empty to auto create ./pdf directory"`
