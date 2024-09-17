@@ -102,3 +102,20 @@ func getFilename(path string) string {
 	f := filepath.Base(path)
 	return strings.TrimSuffix(f, filepath.Ext(f))
 }
+
+func overwriteStruct(target, source interface{}) error {
+	tVal := reflect.ValueOf(target).Elem()
+	sVal := reflect.ValueOf(source).Elem()
+	if tVal.Kind() != reflect.Struct || sVal.Kind() != reflect.Struct {
+		return fmt.Errorf("target and source must be structs")
+	}
+	if tVal.Type() != sVal.Type() {
+		return fmt.Errorf("target and source must be of the same type")
+	}
+	for i := 0; i < sVal.NumField(); i++ {
+		if tVal.Field(i).CanSet() && sVal.Field(i).CanSet() && !sVal.Field(i).IsZero() {
+			tVal.Field(i).Set(sVal.Field(i))
+		}
+	}
+	return nil
+}

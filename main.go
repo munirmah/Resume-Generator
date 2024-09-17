@@ -38,6 +38,7 @@ func main() {
 	configFile := ".config"
 	var (
 		c            config
+		p            config
 		updateConfig bool
 		reload       bool
 		logLevel     string
@@ -45,19 +46,20 @@ func main() {
 	)
 
 	flag.StringVar(&logLevel, "l", "error", "Set the log level: debug, info, warn, error")
-	flag.StringVar(&c.BaseFile, "b", c.BaseFile, "The resume that will be used as a basis for missing information")
-	flag.StringVar(&c.TemplateDir, "temp", "./templates", "The directory containing resume templates")
-	flag.StringVar(&c.TexDir, "tex", "tex", "The directory where TeX files will be generated. Leave empty to auto create ./tex directory")
-	flag.StringVar(&c.PdfDir, "dir", "pdf", "The directory where PDF files will be saved. Leave empty to auto create ./pdf directory")
-	flag.StringVar(&c.CoverFile, "cvr", "default", "The name of the generated cover letter file. Default option will autogenerate the name")
-	flag.StringVar(&c.PdfFile, "pdf", "default", "The name of the generated PDF file. Default option will autogenerate the name")
-	flag.StringVar(&c.KanbanFile, "k", c.KanbanFile, "The Markdown file for your Kanban board")
-	flag.StringVar(&c.Order, "o", c.Order, "Enter the order of sections. Missing section will be omitted\nEnter none to be prompted everytime")
-	flag.BoolVar(&reload, "r", reload, "Enable live reloading of the resume file")
-	flag.BoolVar(&c.Cover, "c", c.Cover, "Generate a Cover Letter?")
+	flag.BoolVar(&reload, "r", false, "Enable live reloading of the resume file")
 	flag.BoolVar(&updateConfig, "config", false, "Update the current configuration file")
-	flag.BoolVar(&c.Track, "t", c.Track, "Whether to track changes in Obsidian?")
-	flag.BoolVar(&c.Show, "s", c.Show, "Show PDF after creation?")
+	flag.StringVar(&p.BaseFile, "b", "", "The resume that will be used as a basis for missing information")
+	flag.StringVar(&resFile, "f", "", "The YAML file containing resume data")
+	flag.StringVar(&p.TemplateDir, "templates", "", "The directory containing resume templates")
+	flag.StringVar(&p.TexDir, "tex", "tex", "The directory where TeX files will be generated. Leave empty to auto create ./tex directory")
+	flag.StringVar(&p.PdfDir, "dir", "pdf", "The directory where PDF files will be saved. Leave empty to auto create ./pdf directory")
+	flag.StringVar(&p.KanbanFile, "k", "", "The Markdown file for your Kanban board")
+	flag.StringVar(&p.CoverFile, "cvr", "default", "The name of the generated cover letter file. Default option will autogenerate the name")
+	flag.StringVar(&p.PdfFile, "pdf", "default", "The name of the generated PDF file. Default option will autogenerate the name")
+	flag.StringVar(&p.Order, "o", "none", "Enter the order of sections. Missing section will be omitted\nEnter none to be prompted everytime")
+	flag.BoolVar(&p.Cover, "c", false, "Generate a Cover Letter?")
+	flag.BoolVar(&p.Track, "t", false, "Whether to track changes in Obsidian?")
+	flag.BoolVar(&p.Show, "s", false, "Show PDF after creation?")
 	flag.Parse()
 
 	switch logLevel {
@@ -74,13 +76,16 @@ func main() {
 		log.SetLevel(log.ErrorLevel)
 	}
 
-	err := c.readConfig(configFile)
-	if err != nil || updateConfig {
-		var genConfig bool
-		if updateConfig {
-			log.Warnf("Updating configuration file")
-			genConfig = true
-		} else {
+	if updateConfig {
+		log.Warnf("Updating configuration file")
+		err := c.generateConfiguration(configFile)
+		if err != nil {
+			log.Fatalf("Error generating configuration file: %v", err)
+		}
+	} else {
+		err := c.readConfig(configFile)
+		if err != nil {
+			var genConfig bool
 			log.Warnf("Error reading configuration file: %v", err)
 
 			form := huh.NewConfirm().
@@ -92,17 +97,22 @@ func main() {
 			if err := form.Run(); err != nil {
 				log.Fatalf("Error generating configuration file: %v", err)
 			}
-		}
-		if genConfig {
-			err := c.generateConfiguration(configFile)
-			if err != nil {
-				log.Fatalf("Error generating configuration file: %v", err)
+			if genConfig {
+				err := c.generateConfiguration(configFile)
+				if err != nil {
+					log.Fatalf("Error generating configuration file: %v", err)
+				}
+			} else {
+				log.Printf("You must configure this application to run. Either create interactively or pass in the following flags:")
+				flag.PrintDefaults()
+				os.Exit(1)
 			}
-		} else {
-			log.Printf("You must configure this application to run. Either create interactively or pass in the following flags:")
-			flag.PrintDefaults()
-			os.Exit(1)
 		}
+	}
+
+	e := overwriteStruct(&c, &p)
+	if e != nil {
+		log.Fatalf("Error overriding configuration: %v", e)
 	}
 
 	if _, err := os.Stat(c.TemplateDir); os.IsNotExist(err) || c.TemplateDir == "" {
