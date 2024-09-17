@@ -170,7 +170,7 @@ The templates are stored in the `templates` directory. You can create your own t
 
 ## Example
 
-[Example Resume](John_Doe_resume.pdf)
+[Example Resume](John_Doe_example.pdf)
 
 ## Contributing
 
