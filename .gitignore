@@ -13,7 +13,7 @@
 !*.go
 !go.sum
 !go.mod
-
+!John_Doe_example.pdf
 !README.md
 !LICENSE
 

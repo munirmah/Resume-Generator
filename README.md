@@ -127,8 +127,8 @@ You can specify the order in which the sections of your resume are rendered by p
 >> This will render the Experience, Skills, and Summary sections in that order.
 
 There are some special values for the order field:
-- `all`: This will render all sections in the order they are defined in the `base.yml` in addition to `resume.yml` file. 
-- `none`: This will make the tool prompt you to select the sections you want to include in your resume.
+- `none`: The tool prompt you to select the sections you want to include in your resume.
+- `all`: This will render all available sections in `base.yml` and `resume.yml` files. Primarily used for testing as the order of sections is not guaranteed.
 
 
 #### PDF Output File Name
@@ -167,6 +167,10 @@ The configuration file follows the schema specified in the `config.json` file.
 
 ## Templates
 The templates are stored in the `templates` directory. You can create your own templates or modify the existing ones to match your personal style. They are written in LaTeX and follow the standard `html/template` syntax.
+
+## Example
+
+[Example Resume](John_Doe_resume.pdf)
 
 ## Contributing
 
