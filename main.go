@@ -358,6 +358,7 @@ func main() {
 		defer w.Close()
 
 		title := fmt.Sprintf("Watching for changes to %s\n  Press CTRL+C to exit", filepath.Base(resFile))
+		openFile(resFile)
 		err = spinner.New().
 			Title(title).
 			Action(func() {
