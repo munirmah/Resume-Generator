@@ -52,14 +52,6 @@ func (c *config) readConfig(file string) error {
 	if err := decoder.Decode(&c); err != nil {
 		return fmt.Errorf("Error decoding configuration file: %w", err)
 	}
-	f, err := os.Stat(c.TemplateDir)
-	if err != nil {
-		return fmt.Errorf("Error finding template directory: %w", err)
-	}
-	if !f.IsDir() {
-		c.TemplateDir = filepath.Dir(c.TemplateDir)
-		return nil
-	}
 	return nil
 }
 
@@ -84,6 +76,7 @@ func (c *config) generateConfiguration(file string) error {
 	log.Infof("Configuration written to %s", file)
 	return nil
 }
+
 func (cfg *config) buildForm() *huh.Form {
 	var formBits []huh.Field
 
@@ -185,4 +178,22 @@ func parseTagOptions(options []string, fieldName string) (title, desc, ext, plac
 		}
 	}
 	return t, d, e, ph
+}
+
+func (c *config) validate() error {
+	//TODO: Add more validation
+	f, err := os.Stat(c.TemplateDir)
+	if err != nil {
+		return fmt.Errorf("Error finding template directory: %w", err)
+	}
+	if !f.IsDir() {
+		c.TemplateDir = filepath.Dir(c.TemplateDir)
+	}
+	if c.PdfFile == "" {
+		c.PdfFile = "default"
+	}
+	if c.CoverFile == "" {
+		c.CoverFile = "default"
+	}
+	return nil
 }

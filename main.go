@@ -122,6 +122,11 @@ func main() {
 		log.Fatalf("Error overriding configuration: %v", e)
 	}
 
+	er := c.validate()
+	if er != nil {
+		log.Fatalf("Error validating configuration: %v", er)
+	}
+
 	if _, err := os.Stat(c.TemplateDir); os.IsNotExist(err) || c.TemplateDir == "" {
 		log.Fatalf("Template directory does not exist: %s", c.TemplateDir)
 	}
