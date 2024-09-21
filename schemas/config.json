@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Configuration",
+  "description": "Configuration options for the application",
+  "type": "object",
+  "properties": {
+    "base": {"type": "string", "description": "The resume that will be used as a basis for missing information", "minLength": 1},
+    "template": {"type": "string", "description": "The directory containing resume templates", "default": "./templates"},
+    "tex": {"type": "string", "description": "The directory where TeX files will be generated. Leave empty to auto create ./tex directory"},
+    "pdf_dir": {"type": "string", "description": "The directory where PDF files will be saved. Leave empty to auto create ./pdf directory"},
+    "cover_file": {"type": "string", "description": "The name of the generated cover letter file. Default option will autogenerate the name", "default": "default"},
+    "pdf": {"type": "string", "description": "The name of the generated PDF file. Default option will autogenerate the name", "default": "default"},
+    "track": {"type": "boolean", "description": "Track changes in Obsidian", "default": false},
+    "kanban": {"type": "string", "description": "The Markdown file for your Kanban board", "minLength": 1},
+    "order": {"type": "string", "description": "Enter the order of sections. Missing section will be omitted: [e]ducation, e[x]perience, [p]rojects, [s]kills, [c]ertifications, cus[t]om, su[m]mary. Enter none to be prompted everytime", "default": "none"},
+    "cover": {"type": "boolean", "description": "Generate a Cover Letter", "default": false},
+    "open": {"type": "boolean", "description": "Open PDF after creation", "default": false}
+  },
+  "additionalProperties": false 
+}

@@ -20,6 +20,9 @@
 # Template Directory
 !templates/*
 
+# Schemas
+!schemas/*
+
 # !Makefile
 
 # ...even if they are in subdirectories

@@ -1,0 +1,184 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Resume and Cover Letter Schema",
+  "type": "object",
+  "properties": {
+    "job": { 
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Title of the Job\nExample: Software Engineer" },
+        "company": { "type": "string", "description": "Company of the Job\nExample: Google" },
+        "location": { "type": "string", "description": "Location of the Job\nExample: Mountain View, CA" },
+        "url": { "type": "string", "format": "uri", "description": "URL of the Job\nExample: https://www.google.com" }
+      },
+      "required": [ "title", "company", "location", "url" ],
+      "description": "Details of the Job being applied for"
+    },
+
+    "information": {
+      "type": "object",
+      "properties": {
+        "name": {"type": "string", "description": "Name of the Person in the Resume\nExample: John Decode"},
+        "address": {
+          "type": "object",
+          "properties": {
+            "street": {"type": "string", "description": "Street of the Address\nExample: 123 Main St"},
+            "city": {"type": "string", "description": "City of the Address\nExample: New York"},
+            "state": {"type": "string", "description": "State of the Address\nExample: NY"},
+            "zip": {"type": "string", "description": "Zip of the Address\nExample: 10001", "pattern": "^\\d{5}$"}
+          },
+          "required": ["street", "city", "state", "zip"],
+          "description": "Address of the Person in the Resume"
+        },
+        "email": {"type": "string", "format": "email", "description": "Email of the Person in the Resume\nExample: name@example.com"},
+        "phone": {"type": "string", "description": "Phone of the Person in the Resume\nExample: \"1234567890\"", "pattern": "^\\d{10}$"},
+        "socials": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "platform": {"type": "string", "description": "Platform of the Social Media\nExample: GitHub", "enum": ["GitHub", "LinkedIn"]},
+              "username": {"type": "string", "description": "Username of the Person in the Social Media\nExample: johndecode"}
+            },
+            "required": ["platform", "username"],
+            "description": "Social Media of the Person in the Resume"
+          }
+        }
+      },
+      "required": ["name", "email", "phone"],
+      "description": "Information of the Person in the Resume"
+    },
+    "education": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string", "description": "Name of the School\nExample: University of Science"},
+          "start_date": {
+            "oneOf": [{"type": "string", "format": "date-time"}, {"type": "string"}],
+            "description": "Start Date of the School\nExample: 2018-08-01"
+          },
+          "end_date": {
+            "oneOf": [{"type": "string", "format": "date-time"}, {"type": "string"}],
+            "description": "End Date of the School\nExample: 2022-05-01"
+          },
+          "major": {"type": "string", "description": "Major of the School\nExample: Computer Science"},
+          "minor": {"type": "string", "description": "Minor of the School\nExample: Mathematics"},
+          "location": {"type": "string", "description": "Location of the School\nExample: New York, NY"}
+        },
+        "required": ["name", "start_date", "end_date", "major", "location"],
+        "description": "Education of the Person in the Resume"
+      }
+    },
+    "experience": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "company": {"type": "string", "description": "Company of the Job\nExample: Google"},
+          "title": {"type": "string", "description": "Title of the Job\nExample: Software Engineer"},
+          "start_date": {
+            "oneOf": [{"type": "string", "format": "date-time"}, {"type": "string"}],
+            "description": "Start Date of the Job\nExample: 2022-05-01"
+          },
+          "end_date": {
+            "oneOf": [ { "type": "string", "format": "date-time" }, { "type": "string" } ],
+            "description": "End Date of the Job or \"Present\"\nExample: 2022-05-01"
+          },
+          "location": {"type": "string", "description": "Location of the Job\nExample: Mountain View, CA"},
+          "description": {"type": "array", "items": { "type": "string" }, "description": "Description of the Job"}
+        },
+        "required": ["company", "title", "start_date", "end_date", "location", "description"],
+        "description": "Experiences of the Person in the Resume"
+      }
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Name of the Project\nExample: Resume Builder" },
+          "description": { "type": "string", "description": "Description of the Project\nExample: A tool to generate resumes" },
+          "technologies": { "type": "array", "items": { "type": "string" }, "description": "Technologies used in the Project\nExample: [Go, LaTeX]" }
+        },
+        "required": [ "name", "description", "technologies" ],
+        "description": "Projects of the Person in the Resume"
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Name of the Skill\nExample: Programming" },
+          "keywords": { "type": "array", "items": { "type": "string" }, "description": "Keywords of the Skill\nExample: [Go, Python]" }
+        },
+        "required": [ "name", "keywords" ],
+        "description": "Skills of the Person in the Resume"
+      }
+    },
+    "certifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Name of the Certification\nExample: AWS Certified Solutions Architect" },
+          "issuing_org": { "type": "string", "description": "Issuing Organization of the Certification\nExample: Amazon Web Services" },
+          "url": { "type": "string", "format": "uri", "description": "URL of the Certification\nExample: https://www.aws.com" },
+          "issue_date": {
+            "oneOf": [ {"type": "string", "format": "date-time"}, { "type": "string" } ],
+            "description": "Issue Date of the Certification\nExample: 2022-05-01"
+          },
+          "expiration_date": {
+            "oneOf": [ { "type": "string", "format": "date-time" }, { "type": "string" } ],
+            "description": "Expiration Date of the Certification\nExample: 2022-05-01"
+          }
+        },
+        "required": [ "name", "issuing_org", "issue_date" ],
+        "description": "Certifications of the Person in the Resume"
+      }
+    },
+    "custom": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Title of the Custom Section\nExample: Hobbies" },
+        "description": { "type": "string", "description": "Description of the Custom Section\nExample: Playing Chess" },
+        "body": { "type": "array", "items": { "type": "string" }, "description": "Body of the Custom Section" }
+      },
+      "required": [ "title", "body" ],
+      "description": "Custom Section of the Person in the Resume"
+    },
+     "summary": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Title of the Summary Section\nExample: Introduction" },
+        "body": { "type": "string", "description": "Description of the Custom Section\nExample: Small introduction" },
+      },
+      "required": [ "title" , "body" ],
+      "description": "Summary Section of the Person in the Resume"
+    },
+    "cover_letter": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the Person in the Cover Letter\nExample: John Deo" },
+        "company": { "type": "string", "description": "Company of the Cover Letter\nExample: Google" },
+        "title": { "type": "string", "description": "Title of the Cover letter recipient\nExample: Hiring Manager" },
+        "address": {
+          "type": "object",
+          "properties": {
+            "street": {"type": "string", "description": "Street of the Address\nExample: 123 Main St"},
+            "city": { "type": "string", "description": "City of the Address\nExample: New York" },
+            "state": { "type": "string", "description": "State of the Address\nExample: NY" },
+            "zip": { "type": "string", "description": "Zip of the Address\nExample: 10001", "pattern": "^\\d{5}$"}
+          },
+          "required": [ "street", "city", "state", "zip" ],
+          "description": "Address of the Cover Letter"
+        },
+        "greeting": { "type": "string", "description": "Greeting of the Cover Letter\nExample: Dear Hiring Manager," },
+        "body": { "type": "string", "description": "Body of the Cover Letter" }
+      },
+      "required": [ "greeting", "body" ],
+      "description": "Cover Letter of the Person in the Resume"
+    }
+  }
+}
