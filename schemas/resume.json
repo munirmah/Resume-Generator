@@ -152,7 +152,7 @@
       "type": "object",
       "properties": {
         "title": { "type": "string", "description": "Title of the Summary Section\nExample: Introduction" },
-        "body": { "type": "string", "description": "Description of the Custom Section\nExample: Small introduction" },
+        "body": { "type": "string", "description": "Description of the Custom Section\nExample: Small introduction" }
       },
       "required": [ "title" , "body" ],
       "description": "Summary Section of the Person in the Resume"
