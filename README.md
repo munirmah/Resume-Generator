@@ -2,7 +2,7 @@
 Welcome to the **Resume Generator**! This tool is designed to simplify and streamline the process of creating consistent, professional resumes. By separating content from styling, you can focus on crafting compelling resumes while the tool handles the formatting.
 
 ## Motivation
-Crafting tailored resumes for each job application can be a time-consuming and tedious process. I wanted to easily change out the content of my LaTeX resume without the hassle of manually updating the file each time. Thus **Resume Generator** was born.
+Crafting tailored resumes for each job application can be a time-consuming and tedious process. I wanted to easily change out the content of my LaTeX resume without the hassle of manually updating the file each time. Thus **Resume Generator** was born. As always, there is a relevant [XKCD](https://xkcd.com/) comic:
 
 <p align="center" width="100%">
   <img src="https://imgs.xkcd.com/comics/automation.png" alt="Relevent XKCD"/>
