@@ -119,3 +119,15 @@ func overwriteStruct(target, source interface{}) error {
 	}
 	return nil
 }
+
+func checkDependencies() error {
+	log.Info("Checking dependencies")
+	dependencies := []string{"pdflatex"}
+	for _, dep := range dependencies {
+		_, err := exec.LookPath(dep)
+		if err != nil {
+			return fmt.Errorf("%s not found in PATH", dep)
+		}
+	}
+	return nil
+}

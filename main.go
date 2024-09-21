@@ -35,6 +35,13 @@ var mapping = map[rune]string{
 }
 
 func main() {
+
+	dep := checkDependencies()
+	if dep != nil {
+		log.Errorf("Missing dependencies: %v", dep)
+		log.Fatal("Unable to run the program due to missing dependencies")
+	}
+
 	configFile := ".config"
 	var (
 		c            config
@@ -54,9 +61,9 @@ func main() {
 	flag.StringVar(&p.TexDir, "tex", "tex", "The directory where TeX files will be generated. Leave empty to auto create ./tex directory")
 	flag.StringVar(&p.PdfDir, "dir", "pdf", "The directory where PDF files will be saved. Leave empty to auto create ./pdf directory")
 	flag.StringVar(&p.KanbanFile, "k", "", "The Markdown file for your Kanban board")
-	flag.StringVar(&p.CoverFile, "cvr", "default", "The name of the generated cover letter file. Default option will autogenerate the name")
-	flag.StringVar(&p.PdfFile, "pdf", "default", "The name of the generated PDF file. Default option will autogenerate the name")
-	flag.StringVar(&p.Order, "o", "none", "Enter the order of sections. Missing section will be omitted\nEnter none to be prompted everytime")
+	flag.StringVar(&p.CoverFile, "cvr", "", "The name of the generated cover letter file. Default option will autogenerate the name")
+	flag.StringVar(&p.PdfFile, "pdf", "", "The name of the generated PDF file. Default option will autogenerate the name")
+	flag.StringVar(&p.Order, "o", "", "Enter the order of sections. Missing section will be omitted\nEnter none to be prompted everytime")
 	flag.BoolVar(&p.Cover, "c", false, "Generate a Cover Letter?")
 	flag.BoolVar(&p.Track, "t", false, "Whether to track changes in Obsidian?")
 	flag.BoolVar(&p.Show, "s", false, "Show PDF after creation?")
