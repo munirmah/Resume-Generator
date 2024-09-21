@@ -50,7 +50,7 @@ cd Resume-Generator
 3. Install the dependencies:
 
 ```bash
-go mod tidy
+go get .
 ```
 
 4. Build the project:
