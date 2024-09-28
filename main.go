@@ -371,6 +371,10 @@ func main() {
 		}
 		defer w.Close()
 
+		resFile, err := filepath.Abs(resFile)
+		if err != nil {
+			log.Fatalf("Error getting absolute path: %v", err)
+		}
 		title := fmt.Sprintf("Watching for changes to %s\n  Press CTRL+C to exit", filepath.Base(resFile))
 		openFile(resFile)
 		err = spinner.New().
