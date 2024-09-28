@@ -23,6 +23,8 @@ const (
 	linkedinURL = "https://www.linkedin.com"
 )
 
+var dependencies = []string{"pdflatex"}
+
 // TODO: Read from config file instead of hardcoding
 var mapping = map[rune]string{
 	'e': "Education",
@@ -36,7 +38,7 @@ var mapping = map[rune]string{
 
 func main() {
 
-	dep := checkDependencies()
+	dep := checkDependencies(dependencies)
 	if dep != nil {
 		log.Errorf("Missing dependencies: %v", dep)
 		log.Fatal("Unable to run the program due to missing dependencies")

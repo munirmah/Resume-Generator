@@ -120,9 +120,8 @@ func overwriteStruct(target, source interface{}) error {
 	return nil
 }
 
-func checkDependencies() error {
+func checkDependencies(dependencies []string) error {
 	log.Info("Checking dependencies")
-	dependencies := []string{"pdflatex"}
 	for _, dep := range dependencies {
 		_, err := exec.LookPath(dep)
 		if err != nil {
