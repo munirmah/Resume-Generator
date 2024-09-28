@@ -419,6 +419,19 @@ func main() {
 								}
 								log.Infof("Generated PDF: %s", c.PdfFile)
 								openFile(path.Join(c.PdfDir, c.PdfFile+".pdf"))
+								if c.Cover {
+									err = res.execTmpl(c.TemplateDir, c.TexDir, c.CoverFile, "", "cover", false)
+									if err != nil {
+										log.Fatalf("Error executing cover letter template: %v", err)
+									}
+									log.Infof("Generated cover letter TeX file: %s", c.CoverFile)
+									err = generatePDF(c.TexDir, c.PdfDir, c.CoverFile)
+									if err != nil {
+										log.Fatalf("Error generating cover letter: %v", err)
+									}
+									log.Infof("Generated cover letter: %s", c.CoverFile)
+									openFile(path.Join(c.PdfDir, c.CoverFile+".pdf"))
+								}
 							}
 						}
 					case err := <-w.Errors:
