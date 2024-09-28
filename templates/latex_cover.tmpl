@@ -11,9 +11,9 @@
 
 \begin{document}
 
-\begin{letter}{ {{if .CoverLetter.Name -}}{{.CoverLetter.Name}}\\{{- end}}{{if .CoverLetter.Title}}{{.CoverLetter.Title}}\\{{- end}}{{if .CoverLetter.Company}} {{.CoverLetter.Company}}\\{{- end}}{{if .CoverLetter.Address.Street }}{{.CoverLetter.Address.Street}}\\{{- end}}{{if .CoverLetter.Address.City -}} {{.CoverLetter.Address.City}},{{- end}} {{if .CoverLetter.Address.State -}} {{.CoverLetter.Address.State}}{{- end}} {{if .CoverLetter.Address.Zip -}}{{.CoverLetter.Address.Zip}}{{- end}} }
+\begin{letter}{}
 
-\opening{Dear {{.CoverLetter.Greeting}},} 
+\opening{ {{- .CoverLetter.Greeting -}} }
 
 {{.CoverLetter.Body}}
 
