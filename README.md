@@ -9,7 +9,7 @@ Crafting tailored resumes for each job application can be a time-consuming and t
 </p>
 
 ## Overview
-The **Resume Generator** leverages Go and LaTeX to provide powerful and customizatble solution for resume creation. The princile behind this tool is to create a separation of concerns:
+The **Resume Generator** leverages Go and LaTeX to provide a powerful and customizable solution for resume creation. The principle behind this tool is to create a separation of concerns:
 
  - **Content**: Define your resume content in a `YAML` file.
  - **Styling**: The typesetting is managed through LaTeX templates.
@@ -20,9 +20,9 @@ The **Resume Generator** leverages Go and LaTeX to provide powerful and customiz
 
 ## Features:
 
-- **YAML-Powered**: Your resume live in a human readable `YAML` file, making it easy to update and maintain.
-- **Customizable**: Choose from a variety of templates or create your own to match your personal style.
-- **Live Preview**: Make changes to your resume content and see the results rendered in *near* real-time.
+- **YAML-Powered**: Your resume lives in a human-readable `YAML` file, making it easy to update and maintain.
+- **Customizable**: Choose from various templates or create your own to match your personal style.
+- **Live Preview**: Modify your resume content and see the results rendered in *near* real-time.
 - **Cover Letter Support**: Generate cover letters alongside your resume by including a cover letter in your `YAML` file.
 - **Obsidian Integration**: Use the Obsidian Kanban plugin to track your application process in Obsidian.
 - **Interactive Configuration**: A user-friendly setup process that guides you through the initial configuration, making it easy to get started.
@@ -31,8 +31,8 @@ The **Resume Generator** leverages Go and LaTeX to provide powerful and customiz
 
 ### Prerequisites
 - **Go**: Ensure you have Go installed on your machine. You can download it [here](https://golang.org).
-- **LaTeX**: Install a LaTeX distribution on your machine such as [TeX Live](https://www.tug.org/texlive/).
-- **Obsidian**: If you plan to use the Obsidian integration, ensure you have Obsidian installed on your machine. You can download it [here](https://obsidian.md).
+- **LaTeX**: Install a LaTeX distribution on your machine, such as [TeX Live](https://www.tug.org/texlive/). PDFs are generated using `pdflatex` under the hood.
+- **Obsidian**: If you plan to use the Obsidian integration, ensure you have Obsidian, along with the kanban plugin installed on your machine. You can download it [here](https://obsidian.md).
 
 ### Installation
 1. Clone the repository:
@@ -128,7 +128,7 @@ You can specify the order in which the sections of your resume are rendered by p
 
 There are some special values for the order field:
 - `none`: The tool prompt you to select the sections you want to include in your resume.
-- `all`: This will render all available sections in `base.yml` and `resume.yml` files. Primarily used for testing as the order of sections is not guaranteed.
+- `all`: This will render all available sections in `base.yml` and `resume.yml` files. Primarily used for testing, as the order of sections is not guaranteed.
 
 
 #### PDF Output File Name
@@ -153,7 +153,7 @@ You can specify the directory where the LaTeX templates are stored by passing th
 #### Latex Directory
 You can specify the directory where the LaTeX files are stored by passing the `-tex` flag.
 
-### Configuraiton
+### Configuration
 
 The tool will, by default, look for a `.config` file in the current directory. If not found, it will ask you to locate one or create a new configuration file.
 Choosing to create a new configuration will guide you through the setup process and will save it in the current directory.
@@ -174,45 +174,8 @@ The templates are stored in the `templates` directory. You can create your own t
 
 ## Contributing
 
-Contributions are welcome! Feel free to open issues or submit pull requests.
+Contributions are welcome! You are welcome to open issues or submit pull requests.
 
 ## License
 
 This project is licensed under the MIT License.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
