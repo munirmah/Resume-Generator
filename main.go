@@ -81,7 +81,7 @@ func main() {
 	case "error":
 		log.SetLevel(log.ErrorLevel)
 	default:
-		log.Errorf("Invalid log level: %s", logLevel)
+		log.Warnf("Invalid log level: %s", logLevel)
 		log.SetLevel(log.ErrorLevel)
 	}
 
@@ -166,7 +166,7 @@ func main() {
 			Negative("No").
 			Value(&find)
 		if err := form.Run(); err != nil {
-			log.Errorf("Error running configuration file prompt: %v", err)
+			log.Fatalf("Error running configuration file prompt: %v", err)
 		}
 		if find {
 			cwd, err := os.Getwd()
@@ -185,7 +185,7 @@ func main() {
 				Value(&resFile).
 				WithHeight(20)
 			if err := form.Run(); err != nil {
-				log.Errorf("Error running file picker: %v", err)
+				log.Fatalf("Error running file picker: %v", err)
 			}
 		} else {
 			log.Fatalf("No resume file provided. Pass in the resume file with the -f flag")
@@ -395,16 +395,20 @@ func main() {
 						}
 						if e.Name == resFile {
 							if e.Op.Has(fsnotify.Write) {
+								log.Debugf("File modified: %s", e.Name)
 								time.Sleep(1 * time.Second)
 								res.parseResume(resFile)
+								log.Debugf("Parsed resume file: %s", resFile)
 								err = res.sanitizeResume()
 								if err != nil {
 									log.Fatalf("Error sanitizing resume file: %v", err)
 								}
+								log.Debugf("Sanitized resume file: %s", resFile)
 								err = res.execTmpl(c.TemplateDir, c.TexDir, c.PdfFile, c.Order, "resume", false)
 								if err != nil {
 									log.Fatalf("Error executing templates: %v", err)
 								}
+								log.Infof("Generated TeX file: %s", c.PdfFile)
 								err = generatePDF(c.TexDir, c.PdfDir, c.PdfFile)
 								if err != nil {
 									log.Fatalf("Error generating PDF: %v", err)
