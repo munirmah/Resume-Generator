@@ -13,18 +13,18 @@ import (
 )
 
 type config struct {
-	BaseFile       string `yaml:"base,omitempty" form:"file; title=Base Resume File; desc=The resume that will be used as a basis for missing information\nLeave empty to ignore; ext=yml"`
-	TemplateDir    string `yaml:"template,omitempty" form:"file; title=Template Directory; desc=The directory containing resume templates;ext=tmpl"`
-	TexDir         string `yaml:"tex,omitempty" form:"dir; title=TeX Output Directory; desc=The directory where TeX files will be generated\nLeave empty to auto create ./tex directory"`
-	PdfDir         string `yaml:"pdf_dir,omitempty" form:"dir; title=PDF Output Directory; desc=The directory where PDF files will be saved\nLeave empty to auto create ./pdf directory"`
-	CoverFile      string `yaml:"cover_file,omitempty" form:"input; title=Cover Letter File Name; desc=The name of the generated cover letter file\nDefault option with autogenerate the name; placeholder=default"`
-	PdfFile        string `yaml:"pdf,omitempty" form:"input; title=PDF File Name; desc=The name of the generated PDF file\nDefault option will autogenerate the name; placeholder=default"`
-	Track          bool   `yaml:"track,omitempty" form:"confirm; title=Track changes in Obsidian"`
-	KanbanFile     string `yaml:"kanban,omitempty" form:"file; title=Kanban Board; desc=The Markdown file for your Kanban board; ext=md"`
-	KanbanListName string `yaml:"kanban_list_name,omitempty" form:"input; title=Kanban List Name; desc=The name of the list in the Kanban board that new jobs will be added under; placeholder=To Apply"`
-	Order          string `yaml:"order,omitempty" form:"input; title=Default Resume Section Order; desc=Enter the order of sections. Missing section will be omitted:\n\t[e]ducation, e[x]perience, [p]rojects, [s]kills, [c]ertifications, cus[t]om, su[m]mary\nEnter none to be prompted everytime; placeholder=none"`
-	Cover          bool   `yaml:"cover,omitempty" form:"confirm; title=Generate a Cover Letter"`
-	Show           bool   `yaml:"show,omitempty" form:"confirm; title=Show PDF after creation"`
+	BaseFile       string `yaml:"base" form:"file; title=Base Resume File; desc=The resume that will be used as a basis for missing information\nLeave empty to ignore; ext=yml"`
+	TemplateDir    string `yaml:"template" form:"file; title=Template Directory; desc=The directory containing resume templates;ext=tmpl"`
+	TexDir         string `yaml:"tex" form:"dir; title=TeX Output Directory; desc=The directory where TeX files will be generated\nLeave empty to auto create ./tex directory"`
+	PdfDir         string `yaml:"pdf_dir" form:"dir; title=PDF Output Directory; desc=The directory where PDF files will be saved\nLeave empty to auto create ./pdf directory"`
+	CoverFile      string `yaml:"cover_file" form:"input; title=Cover Letter File Name; desc=The name of the generated cover letter file\nDefault option with autogenerate the name; placeholder=default"`
+	PdfFile        string `yaml:"pdf" form:"input; title=PDF File Name; desc=The name of the generated PDF file\nDefault option will autogenerate the name; placeholder=default"`
+	Track          bool   `yaml:"track" form:"confirm; title=Track changes in Obsidian"`
+	KanbanFile     string `yaml:"kanban" form:"file; title=Kanban Board; desc=The Markdown file for your Kanban board; ext=md"`
+	KanbanListName string `yaml:"kanban_list_name" form:"input; title=Kanban List Name; desc=The name of the list in the Kanban board that new jobs will be added under; placeholder=To Apply"`
+	Order          string `yaml:"order" form:"input; title=Default Resume Section Order; desc=Enter the order of sections. Missing section will be omitted:\n\t[e]ducation, e[x]perience, [p]rojects, [s]kills, [c]ertifications, cus[t]om, su[m]mary\nEnter none to be prompted everytime; placeholder=none"`
+	Cover          bool   `yaml:"cover" form:"confirm; title=Generate a Cover Letter"`
+	Show           bool   `yaml:"show" form:"confirm; title=Show PDF after creation"`
 }
 
 type resume struct {
@@ -84,8 +84,8 @@ type school struct {
 }
 
 type date struct {
-	time time.Time `yaml:"start_date,issue_date,expiration_date,end_date,omitempty"` // Time of the Date (Optional) Example: 2022-05-01
-	text string    `yaml:"text,omitempty"`                                           // Text of the Date (Optional) Example: Present
+	time time.Time `yaml:"start_date,issue_date,expiration_date,end_date"` // Time of the Date (Optional) Example: 2022-05-01
+	text string    `yaml:"text"`                                           // Text of the Date (Optional) Example: Present
 }
 
 type experience struct {
@@ -128,12 +128,9 @@ type summary struct {
 }
 
 type coverLetter struct {
-	Name     string  `yaml:"name"`     // Name of the Person in the Cover Letter (Optional) Example: John Deo
-	Company  string  `yaml:"company"`  // Company of the Cover Letter (Optional) Example: Google
-	Title    string  `yaml:"title"`    // Title of the Cover letter recipient (Optional) Example: Hiring Manager
-	Address  address `yaml:"address"`  // Address of the Cover Letter (Optional)
-	Greeting string  `yaml:"greeting"` // Greeting of the Cover Letter (Required) Example: Dear Hiring Manager,
-	Body     string  `yaml:"body"`     // Body of the Cover Letter (Required)
+	Company  string `yaml:"company"`  // Company of the Cover Letter (Optional) Example: Google
+	Greeting string `yaml:"greeting"` // Greeting of the Cover Letter (Required) Example: Dear Hiring Manager,
+	Body     string `yaml:"body"`     // Body of the Cover Letter (Required)
 }
 
 func (s social) getURL() string {
@@ -205,34 +202,25 @@ func (c config) String() string {
 
 	sb.WriteString("config:\n")
 
-	// Iterate over each field using reflection
 	v := reflect.ValueOf(c)
 	t := v.Type()
 	for i := 0; i < v.NumField(); i++ {
 		field := t.Field(i)
 		value := v.Field(i)
-
-		// Get the YAML tag, if any
-		yamlTag := field.Name
-		if yamlTag == "" {
-			continue // Skip fields without YAML tags
+		name := field.Name
+		if name == "" {
+			continue
 		}
-
-		// Format the field and its value
 		sb.WriteString("  ")
-		sb.WriteString(yamlTag)
+		sb.WriteString(name)
 		sb.WriteString(": ")
-
-		// Handle booleans specially
 		if value.Kind() == reflect.Bool {
 			sb.WriteString(strconv.FormatBool(value.Bool()))
 		} else {
 			sb.WriteString(fmt.Sprintf("%v", value.Interface()))
 		}
-
 		sb.WriteString("\n")
 	}
-
 	return sb.String()
 }
 
@@ -247,12 +235,20 @@ func (p *phone) UnmarshalYAML(value *yaml.Node) error {
 }
 
 func (t *date) UnmarshalYAML(value *yaml.Node) error {
-	var s string
+	var (
+		s      string
+		layout string
+	)
 	err := value.Decode(&s)
 	if err != nil {
 		return err
 	}
-	layout := "2006-01-02"
+
+	if strings.Contains(s, `/`) {
+		layout = "01/02/2006"
+	} else {
+		layout = "2006-01-02"
+	}
 	parsedTime, err := time.Parse(layout, s)
 	if err != nil {
 		t.text = s
