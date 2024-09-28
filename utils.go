@@ -104,17 +104,26 @@ func getFilename(path string) string {
 }
 
 func overwriteStruct(target, source interface{}) error {
-	tVal := reflect.ValueOf(target).Elem()
-	sVal := reflect.ValueOf(source).Elem()
-	if tVal.Kind() != reflect.Struct || sVal.Kind() != reflect.Struct {
+	tv := reflect.ValueOf(target).Elem()
+	sv := reflect.ValueOf(source).Elem()
+	if tv.Kind() != reflect.Struct || sv.Kind() != reflect.Struct {
 		return fmt.Errorf("target and source must be structs")
 	}
-	if tVal.Type() != sVal.Type() {
+	if tv.Type() != sv.Type() {
 		return fmt.Errorf("target and source must be of the same type")
 	}
-	for i := 0; i < sVal.NumField(); i++ {
-		if tVal.Field(i).CanSet() && sVal.Field(i).CanSet() && !sVal.Field(i).IsZero() {
-			tVal.Field(i).Set(sVal.Field(i))
+	for i := 0; i < sv.NumField(); i++ {
+		if tv.Field(i).CanSet() && sv.Field(i).CanSet() {
+			tf := tv.Field(i)
+			sf := sv.Field(i)
+			if tf.Kind() == reflect.Struct && sf.Kind() == reflect.Struct {
+				err := overwriteStruct(tf.Addr().Interface(), sf.Addr().Interface())
+				if err != nil {
+					return err
+				}
+			} else if !sf.IsZero() {
+				tf.Set(sf)
+			}
 		}
 	}
 	return nil
