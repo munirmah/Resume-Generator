@@ -127,7 +127,7 @@ You can specify the order in which the sections of your resume are rendered by p
 >> This will render the Experience, Skills, and Summary sections in that order.
 
 There are some special values for the order field:
-- `none`: The tool prompt you to select the sections you want to include in your resume.
+- `none`: The tool will prompt you to select the sections you want to include in your resume.
 - `all`: This will render all available sections in `base.yml` and `resume.yml` files. Primarily used for testing, as the order of sections is not guaranteed.
 
 
@@ -174,7 +174,7 @@ The templates are stored in the `templates` directory. You can create your own t
 
 ## Contributing
 
-Contributions are welcome! You are welcome to open issues or submit pull requests.
+Contributions are welcome! Please feel free to open issues or submit pull requests.
 
 ## License
 
