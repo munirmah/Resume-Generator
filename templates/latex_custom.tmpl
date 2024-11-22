@@ -1,16 +1,16 @@
 {{define "Custom"}}
 {{ if .Custom.Title }}\section{ {{- .Custom.Title -}} }
-	{{if .Custom.Description}}
-		{{- .Custom.Description -}} \vspace{-5pt}
-	{{end}}
-	{{if .Custom.Body}}
-		\begin{itemize}
-			{{range .Custom.Body}}
-				\item {{.}}\vspace{-7pt}
-			{{end}}
-		\end{itemize}
-		\vspace{5pt}
-	{{end}}
-		\vspace{5pt}
+{{if .Custom.Description}}
+{{- .Custom.Description -}} \vspace{-5pt}
 {{end}}
+{{if .Custom.Body}}
+\begin{itemize}
+	{{range .Custom.Body}}
+	\item {{.}}\vspace{-7pt}
+	{{end}}
+\end{itemize}
+\vspace{5pt}
+{{end}}
+{{end}}
+\vspace{0pt}
 {{end}}

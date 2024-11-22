@@ -2,10 +2,9 @@
 \documentclass{article}
 \usepackage[hidelinks]{hyperref}
 \usepackage{fancyhdr}
-\usepackage[english]{babel}
-\usepackage[empty]{fullpage}
 \usepackage{titlesec}
-\usepackage{fontawesome}
+\usepackage{fontawesome5}
+\usepackage{ragged2e}
 \nofiles{}
 
 \pdfgentounicode=1
@@ -18,7 +17,7 @@
 
 \usepackage[default]{lato}
 
-\usepackage[top=0.25in, bottom=0.25in, left=0.5in, right=0.5in]{geometry}
+\usepackage[top=0.15in, bottom=0.10in, left=0.5in, right=0.5in]{geometry}
 \raggedbottom{}
 \raggedright{}
 
@@ -30,11 +29,15 @@
 
 \begin{center}
 	\textbf{\Huge {{.Info.Name}}} \\
+	\vspace{5pt}
 	\href{tel:{{.Info.Phone}} }{ \faPhone \, {{ phone .Info.Phone -}} } \qquad
 	\href{mailto:{{.Info.Email}} }{ \faEnvelope \, {{ .Info.Email -}} } \qquad
 	{{range .Info.Socials}}\href{ {{- getURL . -}} }{ {{- icon . }} \, {{ .Username -}} }\qquad{{end}}
+	{{if .Info.Citizenship}}\faFlagUsa \, {{- .Info.Citizenship -}}{{end}}
+	\vspace{-5pt}
 \end{center}
 
+\vspace{0pt}
 
 {{end}}
 

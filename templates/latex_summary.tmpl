@@ -1,7 +1,10 @@
 {{define "Summary"}}
 {{if .Summary.Title}}\section{ {{- .Summary.Title -}} }
-	{{if .Summary.Body}}
-		{{- .Summary.Body -}} \vspace{-5pt}
-	{{end}}
+{{if .Summary.Body}}
+\justifying 
+{{ .Summary.Body }} 
+\raggedright 
 {{end}}
+{{end}}
+\vspace{0pt}
 {{end}}

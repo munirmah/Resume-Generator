@@ -1,8 +1,8 @@
 {{define "Skills"}}
 \section{Skills}
 {{range .Skills}}
-	\textbf{ {{- .Name -}}:} 
-	\textit{\small {{listify .Keywords ","}} } \\
-	\vspace{1pt}
+\textbf{ {{- .Name -}}:} \hangindent=1em \hangafter=1
+\textit{ {{listify .Keywords ","}} } \vspace{2pt}
 {{end}}
+\vspace{0pt}
 {{end}}

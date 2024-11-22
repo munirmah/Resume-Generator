@@ -1,11 +1,12 @@
 {{define "Projects"}}
 \section{Projects}
 {{range .Projects}}
-	\textbf{ {{- .Name -}} } \textit{ \textemdash{} {{listify .Technologies ","}} } \\
-	\begin{itemize}
-		\vspace{-7pt}
-		\item { {{- .Description -}} }
-	\end{itemize}
-	\vspace{-5pt}
+\textbf{ {{- .Name -}} } \textit{ \textemdash{} {{listify .Technologies ","}} } \\
+\vspace{-7pt}
+\begin{itemize}
+	{{range .Description}} \item { {{- . -}} }\vspace{-7pt}
+	{{end}}
+\end{itemize}
 {{end}}
+\vspace{0pt}
 {{end}}
