@@ -49,11 +49,12 @@ type job struct {
 }
 
 type info struct {
-	Name    string   `yaml:"name"`    // Name of the Person in the Resume (Required) Example: John Decode
-	Address address  `yaml:"address"` // Address of the Person in the Resume (Optional)
-	Email   string   `yaml:"email"`   // Email of the Person in the Resume (Required) Example: name@example.com
-	Phone   phone    `yaml:"phone"`   // Phone of the Person in the Resume (Required) Example: 1234567890
-	Socials []social `yaml:"socials"` // Social Media of the Person in the Resume (Optional)
+	Name        string   `yaml:"name"`        // Name of the Person in the Resume (Required) Example: John Decode
+	Citizenship string   `yaml:"citizenship"` // Citizenship of the Person in the Resume (Optional) Example: United States
+	Address     address  `yaml:"address"`     // Address of the Person in the Resume (Optional)
+	Email       string   `yaml:"email"`       // Email of the Person in the Resume (Required) Example: name@example.com
+	Phone       phone    `yaml:"phone"`       // Phone of the Person in the Resume (Required) Example: 1234567890
+	Socials     []social `yaml:"socials"`     // Social Media of the Person in the Resume (Optional)
 }
 
 type address struct {
@@ -99,7 +100,7 @@ type experience struct {
 
 type project struct {
 	Name         string   `yaml:"name"`         // Name of the Project (Required) Example: Resume Builder
-	Description  string   `yaml:"description"`  // Description of the Project (Required) Example: A tool to generate resumes
+	Description  []string `yaml:"description"`  // Description of the Project (Required) Example: A tool to generate resumes
 	Technologies []string `yaml:"technologies"` // Technologies used in the Project (Required) Example: [Go, LaTeX]
 }
 
