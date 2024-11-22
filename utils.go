@@ -27,20 +27,20 @@ func sanitize(in string) (string, error) {
 		"#":    "\\#",
 		"<":    "\\textless{}",
 		">":    "\\textgreater{}",
-		"{":    "\\{",
-		"}":    "\\}",
 		"^":    "\\^",
 		"\xA0": "~", // Non-breaking space
 		"~":    "\\textasciitilde{}",
 	}
-	re := regexp.MustCompile(`([&%$#\-<>{}^\xA0~])`)
+
+	if strings.Contains(in, "\\write18") {
+		return "", fmt.Errorf(`security risk: \\write18 found in input`)
+	}
+
+	re := regexp.MustCompile(`([&%$#\-<>^\xA0~])`)
 	out := re.ReplaceAllStringFunc(in, func(match string) string {
 		return replacements[match]
 	})
 
-	if strings.Contains(out, "\\write18") {
-		return "", fmt.Errorf("security risk: \\write18 found in input")
-	}
 	return out, nil
 }
 
