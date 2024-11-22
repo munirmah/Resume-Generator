@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"path"
+	"runtime"
 	"strings"
 	"time"
 
@@ -112,9 +113,11 @@ func generatePDF(inDir, outDir, filename string) error {
 	if err != nil {
 		return fmt.Errorf("Error generating PDF: %w\nOutput: %s", err, out)
 	}
-	cleanup := exec.Command("find", outDir, "-type", "f", "!", "-name", "*.pdf", "-delete")
-	if _, err := cleanup.CombinedOutput(); err != nil {
-		return fmt.Errorf("Error cleaning up files: %w", err)
+	if runtime.GOOS == "linux" {
+		cleanup := exec.Command("find", outDir, "-type", "f", "!", "-name", "*.pdf", "-delete")
+		if _, err := cleanup.CombinedOutput(); err != nil {
+			return fmt.Errorf("Error cleaning up files: %w", err)
+		}
 	}
 	log.Infof("Successfully generated PDF")
 
