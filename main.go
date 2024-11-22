@@ -38,12 +38,6 @@ var mapping = map[rune]string{
 
 func main() {
 
-	dep := checkDependencies(dependencies)
-	if dep != nil {
-		log.Errorf("Missing dependencies: %v", dep)
-		log.Fatal("Unable to run the program due to missing dependencies")
-	}
-
 	configFile := ".config"
 	var (
 		c            config
@@ -71,7 +65,7 @@ func main() {
 	flag.BoolVar(&p.Show, "s", false, "Show PDF after creation?")
 	flag.Parse()
 
-	switch logLevel {
+	switch strings.ToLower(logLevel) {
 	case "debug":
 		log.SetLevel(log.DebugLevel)
 	case "info":
@@ -83,6 +77,12 @@ func main() {
 	default:
 		log.Warnf("Invalid log level: %s", logLevel)
 		log.SetLevel(log.ErrorLevel)
+	}
+
+	dep := checkDependencies(dependencies)
+	if dep != nil {
+		log.Errorf("Missing dependencies: %v", dep)
+		log.Fatal("Unable to run the program due to missing dependencies")
 	}
 
 	if updateConfig {
