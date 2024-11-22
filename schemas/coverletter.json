@@ -1,0 +1,31 @@
+
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Cover Letter Schema",
+  "type": "object",
+  "properties": {
+    "cover_letter": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the Person in the Cover Letter\nExample: John Deo" },
+        "company": { "type": "string", "description": "Company of the Cover Letter\nExample: Google" },
+        "title": { "type": "string", "description": "Title of the Cover letter recipient\nExample: Hiring Manager" },
+        "address": {
+          "type": "object",
+          "properties": {
+            "street": {"type": "string", "description": "Street of the Address\nExample: 123 Main St"},
+            "city": { "type": "string", "description": "City of the Address\nExample: New York" },
+            "state": { "type": "string", "description": "State of the Address\nExample: NY" },
+            "zip": { "type": "string", "description": "Zip of the Address\nExample: 10001", "pattern": "^\\d{5}$"}
+          },
+          "required": [ "street", "city", "state", "zip" ],
+          "description": "Address of the Cover Letter"
+        },
+        "greeting": { "type": "string", "description": "Greeting of the Cover Letter\nExample: Dear Hiring Manager," },
+        "body": { "type": "string", "description": "Body of the Cover Letter" }
+      },
+      "required": [ "greeting", "body" ],
+      "description": "Cover Letter of the Person in the Resume"
+    }
+  }
+}

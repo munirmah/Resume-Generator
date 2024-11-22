@@ -98,7 +98,7 @@
         "type": "object",
         "properties": {
           "name": { "type": "string", "description": "Name of the Project\nExample: Resume Builder" },
-          "description": { "type": "string", "description": "Description of the Project\nExample: A tool to generate resumes" },
+          "description": { "type": "array", "items": { "type": "string" }, "description": "Description of the Project\nExample: A tool to generate resumes" },
           "technologies": { "type": "array", "items": { "type": "string" }, "description": "Technologies used in the Project\nExample: [Go, LaTeX]" }
         },
         "required": [ "name", "description", "technologies" ],
