@@ -1,181 +1,156 @@
-# Resume Generator
-Welcome to the **Resume Generator**! This tool is designed to simplify and streamline the process of creating consistent, professional resumes. By separating content from styling, you can focus on crafting compelling resumes while the tool handles the formatting.
+# 📄 Resume Generator
 
-## Motivation
-Crafting tailored resumes for each job application can be a time-consuming and tedious process. I wanted to easily change out the content of my LaTeX resume without the hassle of manually updating the file each time. Thus **Resume Generator** was born. As always, there is a relevant [XKCD](https://xkcd.com/) comic:
+[![Go](https://img.shields.io/badge/Go-1.21+-00ADD8?style=flat-square&logo=go)](https://golang.org)
+[![LaTeX](https://img.shields.io/badge/LaTeX-Required-008080?style=flat-square&logo=latex)](https://www.latex-project.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-<p align="center" width="100%">
-  <img src="https://imgs.xkcd.com/comics/automation.png" alt="Relevent XKCD"/>
-</p>
+Generate professional resumes and cover letters with the power of Go and LaTeX. Separate your content from styling, and focus on what matters most—showcasing your experience.
 
-## Overview
-The **Resume Generator** leverages Go and LaTeX to provide a powerful and customizable solution for resume creation. The principle behind this tool is to create a separation of concerns:
+<div align="center">
+  <img src="https://imgs.xkcd.com/comics/automation.png" alt="XKCD Automation Comic" width="400"/>
+  <p><i>Yes, I know I'm spending more time on this than I'll save. That's half the fun!</i></p>
+</div>
 
- - **Content**: Define your resume content in a `YAML` file.
- - **Styling**: The typesetting is managed through LaTeX templates.
- - **Generation**: The tool combines your resume content with the selected template to create a PDF output.
+## ✨ Features
 
-> [!CAUTION]
-> Developed and tested on Fedora Linux. The tool may not work as expected on other operating systems. 
+- **Content-Style Separation**: Write your resume content in YAML, let LaTeX handle the formatting
+- **Live Preview**: Watch your changes render in near real-time as you edit
+- **Multiple Output Support**: Generate both resumes and cover letters from a single source
+- **Base Resume Templates**: Use a base resume for common information, customize for specific applications
+- **Interactive Setup**: User-friendly configuration process to get you started quickly
 
-## Features:
+## 📋 Example Output
 
-- **YAML-Powered**: Your resume lives in a human-readable `YAML` file, making it easy to update and maintain.
-- **Customizable**: Choose from various templates or create your own to match your personal style.
-- **Live Preview**: Modify your resume content and see the results rendered in *near* real-time.
-- **Cover Letter Support**: Generate cover letters alongside your resume by including a cover letter in your `YAML` file.
-- **Obsidian Integration**: Use the Obsidian Kanban plugin to track your application process in Obsidian.
-- **Interactive Configuration**: A user-friendly setup process that guides you through the initial configuration, making it easy to get started.
+<div align="center">
+  <a href="John_Doe_example.pdf">
+  <p><i>Click to view the full example PDF</i></p>
+  </a>
+</div>
 
-## Getting Started
+> This is a sample resume generated using the default template. Your resume can look different based on your chosen template and content.
+
+
+## 🚀 Quick Start
 
 ### Prerequisites
-- **Go**: Ensure you have Go installed on your machine. You can download it [here](https://golang.org).
-- **LaTeX**: Install a LaTeX distribution on your machine, such as [TeX Live](https://www.tug.org/texlive/). PDFs are generated using `pdflatex` under the hood.
-- **Obsidian**: If you plan to use the Obsidian integration, ensure you have Obsidian, along with the kanban plugin installed on your machine. You can download it [here](https://obsidian.md).
+
+- Go 1.21 or higher
+- LaTeX distribution with `pdflatex`
 
 ### Installation
-1. Clone the repository:
 
 ```bash
-git clone https://github.com/munirmah/Resume-Generator.git 
-```
+# Clone the repository
+git clone https://github.com/munirmah/Resume-Generator.git
 
-2. Navigate to the project directory:
-
-```bash
+# Navigate to project directory
 cd Resume-Generator
-```
 
-3. Install the dependencies:
-
-```bash
+# Install dependencies
 go get .
-```
 
-4. Build the project:
-
-```bash
+# Build the project
 go build .
 ```
 
-## Usage
-
-You can run the tool using the following command:
+### Basic Usage
 
 ```bash
-./Resume-Generator
+# Generate a resume with default settings
+./Resume-Generator -f your-resume.yml
+
+# Enable live preview while editing
+./Resume-Generator -f your-resume.yml -r
+
+# Generate both resume and cover letter
+./Resume-Generator -f your-resume.yml -c
 ```
 
-### Resume Flags
+## 🎯 Core Concepts
 
+### YAML-Based Content
 
-#### Base Resume Selection
-You can specify a `base.yml` file to use as the base resume content by passing the `-b` flag.
-This allows you to easily generate new resumes without having to include unchanging information such as your contact details.
+Your resume content lives in a clean, human-readable YAML file:
 
-The `base.yml` file should adhere to the schema specified in the `resume.json` file.
+```yaml
+information:
+  name: "Jane Doe"
+  email: "jane@example.com"
+  phone: "123-456-7890"
 
-#### Cover Letter Generation
-You can generate a cover letter alongside your resume by passing the `-c` flag.
+experience:
+  - company: "Tech Corp"
+    title: "Senior Developer"
+    start_date: "2020-01-01"
+    end_date: "Present"
+    description:
+      - "Led development of core platform features"
+      - "Mentored junior developers"
+```
 
-#### Config Regeneration
-You can regenerate the configuration file by passing the `-config` flag and overwriting the existing configuration.
+### Section Ordering
 
-#### Cover Letter File Name
-You can specify the name of the cover letter file by passing the `-cvr` flag.
+Customize your resume's section order using simple letter codes:
 
-> [!NOTE]
-> The default value of `"default"` will generate a file with Name, resume file name and "cvr".
-> For example, if the resume file name is `resume.yml` and the name is `John Doe`, the cover letter file will be named `John_Doe_resume_cvr.pdf`.
+- `e` - Education
+- `x` - Experience
+- `s` - Skills
+- `p` - Projects
+- `c` - Certifications
+- `t` - Custom
+- `m` - Summary
 
-#### Directory for Output
-You can specify the directory where the PDF output files will be saved by passing the `-dir` flag.
+Example: `-o xsep` renders `Experience → Skills → Education → Projects`
 
-#### File with Resume Content
-You can specify the file containing the resume content by passing the `-f` flag.
+## 🛠️ Configuration
 
-#### Kanban File
-You can specify the file `md` containing the Kanban board for the Obsidian integration by passing the `-k` flag.
+### Command Line Flags
 
-#### Logging Level
-You can specify the logging level by passing the `-l` flag. The available options are:
- - `info`
- - `warn`
- - `error`
- - `debug`
+| Flag | Description | Default |
+|------|-------------|---------|
+| `-f` | Resume YAML file | Required |
+| `-b` | Base resume template | Optional |
+| `-c` | Generate cover letter | false |
+| `-r` | Enable live preview | false |
+| `-o` | Section order | Required |
+| `-s` | Show PDF after generation | false |
+| `-l` | Log level (debug,info,warn,error) | error |
 
-#### Order of Sections
-You can specify the order in which the sections of your resume are rendered by passing the `-o` flag.
+### Configuration File
 
-> [!NOTE]
-> The letter to section mapping is as follows:
-> - `e`: Education
-> - `x`: Experience
-> - `s`: Skills
-> - `p`: Projects
-> - `c`: Certifications
-> - `t`: Custom
-> - `m`: Summary
->
-> **Any sections not included will not be rendered in the final resume.**
->
->>  For example:
->> ```bash
->> ./Resume-Generator -o xsm
->> ```
->> This will render the Experience, Skills, and Summary sections in that order.
+The tool uses a `.config` file for persistent settings. First run creates this interactively, or override with flags.
 
-There are some special values for the order field:
-- `none`: The tool will prompt you to select the sections you want to include in your resume.
-- `all`: This will render all available sections in `base.yml` and `resume.yml` files. Primarily used for testing, as the order of sections is not guaranteed.
+## 🔍 Advanced Features
 
+### Base Resume System
 
-#### PDF Output File Name
-You can specify the name of the PDF output file by passing the `-pdf` flag.
+Use a base resume for unchanging information:
 
-> [!NOTE]
-> The default value of `"default"` will generate a file with Name, resume file name.
-> For example, if the resume file name is `resume.yml` and the name is `John Doe`, the cover letter file will be named `John_Doe_resume.pdf`.
+```bash
+./Resume-Generator -b base.yml -f job-specific.yml
+```
 
-#### Real-Time Preview
-You can enable real-time preview of the resume by passing the `-r` flag.
+### Live Preview Mode
 
-#### Show the Generated PDF
-You can enable the tool to open the generated PDF file by passing the `-s` flag.
+Enable real-time PDF updates while editing:
 
-#### Track Application in Obsidian
-You can enable the Obsidian integration by passing the `-t` flag.
+```bash
+./Resume-Generator -f resume.yml -r
+```
 
-#### Template Directory
-You can specify the directory where the LaTeX templates are stored by passing the `-temp` flag.
+## 🤝 Contributing
 
-#### Latex Directory
-You can specify the directory where the LaTeX files are stored by passing the `-tex` flag.
+Contributions welcome! Feel free to:
 
-### Configuration
+- Open issues for bugs or suggestions
+- Submit pull requests
+- Improve documentation
+- Share your templates
 
-The tool will, by default, look for a `.config` file in the current directory. If not found, it will ask you to locate one or create a new configuration file.
-Choosing to create a new configuration will guide you through the setup process and will save it in the current directory.
+## 📝 License
 
-This helps you to avoid passing the same flags every time you run the tool.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-> [!NOTE]
-> You can still override any of the configuration options by passing them as flags when running the tool.
+---
 
-The configuration file follows the schema specified in the `config.json` file.
-
-## Templates
-The templates are stored in the `templates` directory. You can create your own templates or modify the existing ones to match your personal style. They are written in LaTeX and follow the standard `html/template` syntax.
-
-## Example
-
-[Example Resume](John_Doe_example.pdf)
-
-## Contributing
-
-Contributions are welcome! Please feel free to open issues or submit pull requests.
-
-## License
-
-This project is licensed under the MIT License.
+Made with ❤️ by [munirmah](https://github.com/munirmah)
